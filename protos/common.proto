@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package auth;
+
+service CommonsService {
+    rpc CreateUser (CreateCommonDto) returns (Common) {}
+   
+}
+
+
+
+message CreateCommonDto {
+    string username = 1;
+    string password = 2;
+    int32 age = 3;
+}
+
+message Common {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    int32 age = 4;
+    bool subscribed = 5;
+   
+}
