@@ -38,4 +38,9 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  @Post('message')
+  emitMessage(@Body() message: any) {
+    return this.usersService.emitMessage(message);
+  }
 }

@@ -7,7 +7,9 @@
     "deleteOutDir": true,
     "webpack": true,
     "tsConfigPath": "apps/apigateway/tsconfig.app.json",
-    "assets": ["protos/*.proto"],
+    "assets": [
+      "protos/*.proto"
+    ],
     "watchAssets": true
   },
   "monorepo": true,
@@ -20,7 +22,9 @@
       "sourceRoot": "./",
       "compilerOptions": {
         "tsConfigPath": "apps/apigateway/tsconfig.app.json",
-        "assets": ["protos/*.proto"],
+        "assets": [
+          "protos/*.proto"
+        ],
         "watchAssets": true
       }
     },
@@ -31,7 +35,9 @@
       "sourceRoot": "./",
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json",
-        "assets": ["protos/*.proto"],
+        "assets": [
+          "protos/*.proto"
+        ],
         "watchAssets": true
       }
     },
@@ -42,6 +48,15 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "messages": {
+      "type": "application",
+      "root": "apps/messages",
+      "entryFile": "main",
+      "sourceRoot": "apps/messages/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/messages/tsconfig.app.json"
       }
     }
   }

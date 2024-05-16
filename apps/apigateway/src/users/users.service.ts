@@ -6,13 +6,16 @@ import {
   UsersServiceClient,
 } from '@app/common';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { ClientGrpc } from '@nestjs/microservices';
+import { ClientGrpc, ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
   private userServiceClient: UsersServiceClient;
 
-  constructor(@Inject(AUTH_PACKAGE_NAME) private client: ClientGrpc) {}
+  constructor(
+    @Inject(AUTH_PACKAGE_NAME) private client: ClientGrpc,
+    @Inject('CLIENT_RMQ') private rabbitClient: ClientProxy,
+  ) {}
 
   onModuleInit() {
     this.userServiceClient =
@@ -37,5 +40,11 @@ export class UsersService implements OnModuleInit {
 
   remove(id: string) {
     return this.userServiceClient.removeUser({ id });
+  }
+
+  emitMessage(message: any) {
+    console.log('🚀 ~ UsersService ~ emitMessage ~ message:', message);
+    this.rabbitClient.emit('message_event', message);
+    return { message: 'Gửi tin nhắn thành công' };
   }
 }

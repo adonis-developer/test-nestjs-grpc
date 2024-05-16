@@ -17,6 +17,21 @@ import { join } from 'path';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'CLIENT_RMQ',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            'amqps://feoghlgj:0la1K9IfAhHWAdHJLCh03vpHje4L1mPX@cougar.rmq.cloudamqp.com/feoghlgj',
+          ],
+          queue: 'message_queue',
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+    ]),
   ],
   controllers: [UsersController],
   providers: [UsersService],
