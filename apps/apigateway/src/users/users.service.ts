@@ -7,6 +7,7 @@ import {
 } from '@app/common';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc, ClientProxy } from '@nestjs/microservices';
+import { map } from 'rxjs';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -15,6 +16,8 @@ export class UsersService implements OnModuleInit {
   constructor(
     @Inject(AUTH_PACKAGE_NAME) private client: ClientGrpc,
     @Inject('CLIENT_RMQ') private rabbitClient: ClientProxy,
+    @Inject('CAMPAIGN_CLIENT_RMQ') private rabbitClientCampaign: ClientProxy,
+    @Inject('USER_CLIENT_RMQ') private rabbitClientUser: ClientProxy,
   ) {}
 
   onModuleInit() {
@@ -45,6 +48,20 @@ export class UsersService implements OnModuleInit {
   emitMessage(message: any) {
     console.log('🚀 ~ UsersService ~ emitMessage ~ message:', message);
     this.rabbitClient.emit('message_event', message);
+    return { message: 'Gửi tin nhắn thành công' };
+  }
+
+  emitCampaign(message: any) {
+    console.log('🚀 ~ UsersService ~ emitMessage ~ message:', message);
+    const result = this.rabbitClientCampaign
+      .send({ cmd: 'sync_campaign' }, message)
+      .pipe(map((data) => ({ message: data })));
+    return result;
+  }
+
+  emitUser(message: any) {
+    console.log('🚀 ~ UsersService ~ emitMessage ~ message:', message);
+    this.rabbitClientUser.emit('sync_user', message);
     return { message: 'Gửi tin nhắn thành công' };
   }
 }

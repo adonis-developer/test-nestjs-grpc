@@ -21,6 +21,34 @@ async function bootstrap() {
     },
   });
 
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [
+        'amqps://feoghlgj:0la1K9IfAhHWAdHJLCh03vpHje4L1mPX@cougar.rmq.cloudamqp.com/feoghlgj',
+      ],
+      queue: 'sync_user',
+      queueOptions: {
+        durable: true,
+      },
+      noAck: false,
+    },
+  });
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [
+        'amqps://feoghlgj:0la1K9IfAhHWAdHJLCh03vpHje4L1mPX@cougar.rmq.cloudamqp.com/feoghlgj',
+      ],
+      queue: 'sync_campaign',
+      queueOptions: {
+        durable: true,
+      },
+      noAck: false,
+    },
+  });
+
   app.startAllMicroservices();
 }
 bootstrap();

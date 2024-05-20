@@ -43,4 +43,14 @@ export class UsersController {
   emitMessage(@Body() message: any) {
     return this.usersService.emitMessage(message);
   }
+
+  @Post('campaign')
+  emitCampaign(@Body() message: any) {
+    return this.usersService.emitCampaign(message);
+  }
+
+  @Post('user')
+  emitUser(@Body() message: any) {
+    return this.usersService.emitUser(message);
+  }
 }

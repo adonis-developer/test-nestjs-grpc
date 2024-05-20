@@ -32,6 +32,36 @@ import { join } from 'path';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'USER_CLIENT_RMQ',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            'amqps://feoghlgj:0la1K9IfAhHWAdHJLCh03vpHje4L1mPX@cougar.rmq.cloudamqp.com/feoghlgj',
+          ],
+          queue: 'sync_user',
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+    ]),
+    ClientsModule.register([
+      {
+        name: 'CAMPAIGN_CLIENT_RMQ',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            'amqps://feoghlgj:0la1K9IfAhHWAdHJLCh03vpHje4L1mPX@cougar.rmq.cloudamqp.com/feoghlgj',
+          ],
+          queue: 'sync_campaign',
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+    ]),
   ],
   controllers: [UsersController],
   providers: [UsersService],

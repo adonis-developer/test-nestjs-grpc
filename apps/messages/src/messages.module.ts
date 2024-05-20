@@ -6,6 +6,10 @@ import { MessageModule } from './message/message.module';
 import { Message } from './message/entities/message.entity';
 import { DetailMessageModule } from './detail-message/detail-message.module';
 import { DetailMessage } from './detail-message/entities/detail-message.entity';
+import { UsersModule } from './users/users.module';
+import { Users } from './users/entities/user.entity';
+import { CampaignsModule } from './campaigns/campaigns.module';
+import { Campaigns } from './campaigns/entities/campaign.entity';
 
 @Module({
   imports: [
@@ -16,7 +20,7 @@ import { DetailMessage } from './detail-message/entities/detail-message.entity';
       username: 'postgres',
       password: '123456jqk',
       database: 'postgres',
-      entities: [Message, DetailMessage],
+      entities: [Message, DetailMessage, Users, Campaigns],
       migrations: ['src/migrations/*.ts'],
       synchronize: true,
       schema: 'blockchain',
@@ -24,6 +28,8 @@ import { DetailMessage } from './detail-message/entities/detail-message.entity';
 
     MessageModule,
     DetailMessageModule,
+    UsersModule,
+    CampaignsModule,
   ],
   controllers: [MessagesController],
   providers: [MessagesService],
